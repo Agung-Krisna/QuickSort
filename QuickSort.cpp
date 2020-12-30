@@ -16,7 +16,7 @@ void swapper(int* a, int* b)
 /*  
     * Last Element = pivot
     * left = less than pivot
-    * right = mroe than pivot
+    * right = more than pivot
 */
 int partition (int low, int high)  
 {  
