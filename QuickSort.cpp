@@ -11,7 +11,6 @@ void swapper(int* a, int* b)
     *a = *b;  
     *b = temporary;  
 }  
-  
 
 /*  
     * Last Element = pivot
@@ -23,6 +22,7 @@ int partition (int low, int high)
     int pivot = arrays[high]; // pivot (last element) 
     int i = (low - 1); // Index of smaller element, starting from position -1.
 
+    
     for (int j = low; j <= high - 1; j++)  
     {  
         // If current element is smaller than the pivot  
@@ -44,25 +44,24 @@ void quicksort(int low, int high)
         //pi stands for partition index, so that we can divide the array into two different sections.
         int pi = partition(low, high);  
 
-        // Separately sort elements before  
-        // partition and after partition  
-        quicksort(low, pi - 1);  
-        quicksort(pi + 1, high);  
+
+        quicksort(low, pi - 1);  //before partition
+        quicksort(pi + 1, high);  //after partition
     }  
 }  
 
-void showArray(int size)  
+void showArray(int max)  
 {  
-    int i;  
-    for (i = 0; i < size; i++)  
+    int start;  
+    for (start = 0; start < max; start++)  
     {
-        if (i == size - 1)
+        if (start == max - 1)
         {
-            printf("%d\n", arrays[i]);
+            printf("%d\n", arrays[start]);
         }
         else
         {
-        printf("%d, ", arrays[i]);
+        printf("%d, ", arrays[start]);
         }
     }
 }  
@@ -80,8 +79,20 @@ int main()
     {
         scanf ("%d", &arrays[start]);
     }
+
+    auto t_start = std::chrono::high_resolution_clock::now();//starting the timer
+
     quicksort (low, max - 1);
     printf("Sorted array:\n");
     showArray (max);
     
+    auto t_stop = std::chrono::high_resolution_clock::now();//stopping the timer
+
+
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t_stop - t_start); //subtract the result from the stop and the start.
+
+    printf("Quick Sort Algorithm\n");//giving an information to the user about the program algorithm
+    printf("Time taken to sort the array: %d microseconds\n", duration.count());//showing the result to the user.
+
+    return 0;
 }  
